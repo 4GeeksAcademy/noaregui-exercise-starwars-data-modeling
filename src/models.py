@@ -34,8 +34,6 @@ class Personajes(Base):
     peso = Column(Integer)
     color_piel = Column(String(200))
 
-    favoritos = relationship("favoritos")
-
 class Vehiculos(Base):
     __tablename__ = 'vehiculos'
     id = Column(Integer, primary_key=True)
@@ -44,26 +42,21 @@ class Vehiculos(Base):
     velocidad = Column(Integer)
     modelo = Column(String(200))
     color = Column(String(200))
-
-    favoritos = relationship("favoritos")
    
 class Favoritos(Base):
     __tablename__ = 'favoritos'
     favorito_id = Column(Integer, primary_key=True)
-    usuario_id = Column(Integer, ForeignKey("usuario.user_id"))
-    personaje_id = Column(Integer, ForeignKey("personajes.personaje_id"))
-    planeta_id = Column(Integer, ForeignKey("planetas.planeta_id"))
-    vehiculo_id = Column(Integer, ForeignKey("vehiculos.vehiculos_id"))
 
-    # Relación con Usuario (muchos a uno)
+    usuario_id = Column(Integer, ForeignKey("usuario.user_id"))
     usuario = relationship("Usuario")
 
-    # Relación con Personajes (muchos a uno)
+    personaje_id = Column(Integer, ForeignKey("personajes.personaje_id"))
     personajes = relationship("Personajes")
 
-    # Relación con Planetas (muchos a uno)
+    planeta_id = Column(Integer, ForeignKey("planetas.planeta_id"))
     planetas = relationship("Planetas")
 
+    vehiculo_id = Column(Integer, ForeignKey("vehiculos.vehiculos_id"))
     vehiculos = relationship("Vehiculos")
 
     def to_dict(self):
